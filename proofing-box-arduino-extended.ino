@@ -1,5 +1,7 @@
 #include <LiquidCrystal.h>
 
+//#define SERIAL_DEBUG 1
+
 // initialize LCD library
 const int rs = 11, en = 10, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
@@ -53,8 +55,10 @@ byte flameChar2[] = {
 
 void setup()
 {
+#ifdef SERIAL_DEBUG
   // Setup debug serial
   Serial.begin(9600);
+#endif
 
   // Setup I/Os
   pinMode(tempSensor, INPUT);
@@ -84,18 +88,24 @@ double readTermperature() {
   vout = analogRead(tempSensor);
   vout = analogRead(tempSensor);
 
+#ifdef SERIAL_DEBUG
   Serial.print("sample:");
   Serial.print(vout);
   Serial.print(",");
+#endif
   vout = vout * 1.129 / 1023.0; // little bit tuned
+#ifdef SERIAL_DEBUG
   Serial.print("v:");
   Serial.print(vout);
   Serial.print(",");
+#endif
 
   // Returning value in Degree Celsius
   vout = vout * 100;
+#ifdef SERIAL_DEBUG
   Serial.print("t:");
   Serial.println (curTemp);
+#endif
 
   return vout;
 }
@@ -114,9 +124,11 @@ double readSetTemp() {
   // sadly the first read is less accurate... use the second one
   readT = analogRead(tempSetting);
   readT = analogRead(tempSetting);
+#ifdef SERIAL_DEBUG
   Serial.print("readT:");
   Serial.print(readT);
   Serial.print(",");
+#endif
   return readT * 40 / 1023; // set a max of 40C
 }
 
