@@ -30,4 +30,6 @@ Here setting 30°C as target temperature:
 
 In the last one, after some minutes, I switched off the heating source's power supply (at the end you can see the curve goes down).
 
+## License
 
+See the [LICENSE](LICENSE.md) file for license rights and limitations (GNU LGPLv3).
